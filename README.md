@@ -6,7 +6,7 @@
 ;; handeling from the repl
 
 ;; to use it add a ref to
-[cljs-event "0.1.0-SNAPSHOT"]
+[cljs-event "0.1.1-SNAPSHOT"]
 
 ;; and import the following
 
@@ -21,7 +21,7 @@
 
 ;; now you can write handlers like this
 
-(defhandler :some-event :my-ref [e]
+(defhandler :some-event ::my-ref [e] ;; ns qualifying the ref to avoid collitions
  (js/alert "some event happend"))
 
 ;; The ref theres is what enables you to re evaluate the handler from the
@@ -38,4 +38,16 @@
 
 ;; this will cause the input to trigger the handler.
 
+;; additional functions
 
+;; triggers:
+;;  creates the :data-event string for you and assocs it with its last
+;;  argument
+
+[:input.event (triggers :click :some-event { :type "button" :value
+"click me" })]
+
+;; trigger:
+;;  manualy triggers some event
+
+(trigger :some-event { :some-data "hello world" })
